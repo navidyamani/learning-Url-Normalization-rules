@@ -1,6 +1,6 @@
 package test;
 
-import patternTree.PatternTreeBuilder;
+import patternTree.PatternTreeMaker;
 import trainingSet.UrlDecomposer;
 
 import org.testng.Assert;
@@ -98,7 +98,7 @@ public class test {
             testMap.put( "SomeString" + random.nextInt(), random.nextInt()+.01);
         }
 
-        testMap = PatternTreeBuilder.sortMapByValue(testMap );
+        testMap = PatternTreeMaker.sortMapByValue(testMap );
         Assert.assertEquals( 1000, testMap.size() );
 
         Double previous = null;

@@ -8,18 +8,18 @@ import java.util.*;
  * Created by navid
  */
 
-public class PatternTreeBuilder {
+public class PatternTreeMaker {
 
     /***
      * @param urlGroup List of CorrectUrls
      * @param keyDone  set of keys that have been processed
      * @return a patternTree node for URLs in urlGroup
      */
-    public PatternTreeNode<String> buildPatternTree(List<CorrectUrl> urlGroup, HashSet keyDone, PatternTreeNode<String> parentNode) {
+    public PatternTreeNode<String> makePatternTree(List<CorrectUrl> urlGroup, Set<String> keyDone, PatternTreeNode<String> parentNode , Map<String,List<String>> trivialMap) {
 
         //TODO
 //        1: Create a new node t
-        PatternTreeNode<String> patternTreeNode = new PatternTreeNode<String>(urlGroup, parentNode);
+        PatternTreeNode<String> patternTreeNode = new PatternTreeNode<>(urlGroup, parentNode);
 
 //        3: Calculate entropy H(k) for each key in U
         Map<String, Double> entropies = calculateEntropy(urlGroup);
@@ -34,11 +34,14 @@ public class PatternTreeBuilder {
                 //        6: Vk∗ = ∅
 
                 //        7: for all URL u ∈ U do
+
                 for (CorrectUrl url : urlGroup) {
-//            8: if u(k ∗ ) is a trivial value then
-//               9: V k ∗ = (V k ∗ ∪ “ ∗ ”)
+//            8: if u(k∗) is a trivial value then
+//                    if(trivialMap.containsKey(entry.getKey()) && trivialMap.get(entry.getKey()).contains())
+
+//               9: Vk∗ = (Vk∗ ∪ “∗”)
 //            10:else
-//               11:Vk∗ = (V k ∗ ∪ u(k ∗ ))
+//               11:Vk∗ = (Vk∗ ∪ u(k∗))
 //          12:  end if
 //          13: end for
                 }
@@ -50,7 +53,7 @@ public class PatternTreeBuilder {
                 for (List<CorrectUrl> urlSubGroup : splitUrlGroup()) {
 //            19: ch = BuildPatternTree(Ui , K done ∪ {k∗}) And 20: add ch to t as a child node
                     keyDone.add(entry.getKey());
-                    patternTreeNode.addChild(buildPatternTree(urlSubGroup, keyDone, patternTreeNode));
+                    patternTreeNode.addChild(makePatternTree(urlSubGroup, keyDone, patternTreeNode , trivialMap));
 //        21: end for
                 }
 //        22: end if
@@ -64,7 +67,7 @@ public class PatternTreeBuilder {
     /***
      * Generates a regular expression for pattern tree node to describe URLs in U
      *
-     * @return String value of regular expression :| !!!!!!!!!!!!!!!
+     * @return String value of regular expression
      */
     private String generateRegularExpresion(Map<String, Double> antropyList) {
         //TODO

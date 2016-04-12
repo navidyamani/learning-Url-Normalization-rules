@@ -22,15 +22,7 @@ class DuplicateCluster {
     public DuplicateCluster(String name, List<String> urlStrList) {
         this.name = name;
         for (String urlStr : urlStrList) {
-            try {
-                addCorrectUrl(new CorrectUrl(urlStr));
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-                addMalformedUrl(urlStr);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-                addMalformedUrl(urlStr);
-            }
+            addUrl(urlStr);
         }
     }
 
@@ -50,8 +42,13 @@ class DuplicateCluster {
         this.correctUrls = correctUrls;
     }
 
-    public void addCorrectUrl(CorrectUrl correctUrl) {
-        this.correctUrls.add(correctUrl);
+    private void addUrl(String urlStr) {
+        try {
+            this.correctUrls.add(new CorrectUrl(urlStr));
+        } catch (MalformedURLException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+            addMalformedUrl(urlStr);
+        }
     }
 
     public List<String> getMalformedUrls() {
@@ -62,7 +59,7 @@ class DuplicateCluster {
         this.malformedUrls = malformedUrls;
     }
 
-    public void addMalformedUrl(String malformedUrl) {
+    private void addMalformedUrl(String malformedUrl) {
         this.malformedUrls.add(malformedUrl);
     }
 

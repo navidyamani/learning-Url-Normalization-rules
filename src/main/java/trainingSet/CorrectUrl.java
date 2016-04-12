@@ -13,7 +13,4 @@ public class CorrectUrl {
         this.urlStr = urlStr;
         this.keyValuePairs = new UrlDecomposer().decompose(urlStr);
     }
-
-
-
 }

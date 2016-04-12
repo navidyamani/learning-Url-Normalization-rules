@@ -15,7 +15,7 @@ public class Runner {
     public static void main(String[] args) throws MalformedURLException, UnsupportedEncodingException {
 
 
-        PatternTree patternTree = new PatternTree(new PatternTreeBuilder().buildPatternTree(null,null,null));
+        PatternTree patternTree = new PatternTree(new PatternTreeMaker().makePatternTree(null,null,null));
 
 
 
